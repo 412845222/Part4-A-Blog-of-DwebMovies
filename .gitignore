@@ -1,0 +1,23 @@
+# 后端忽略
+/dwebsite/db.sqlite3
+/dwebsite/dwebsite/__pycache__
+/dwebsite/blog/migrations
+/dwebsite/blog/__pycache__
+dwebsite/dwebsite/settings.py
+
+#前端
+/dwebhtml/node_modules
+/dwebhtml/node_modules
+/dwebhtml//dist
+
+# local env files
+/dwebhtml/.env.local
+/dwebhtml/.env.*.local
+
+# Log files
+/dwebhtml/npm-debug.log*
+/dwebhtml/yarn-debug.log*
+/dwebhtml/yarn-error.log*
+
+# 其他
+/.vscode
