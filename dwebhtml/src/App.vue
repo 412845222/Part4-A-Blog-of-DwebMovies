@@ -3,53 +3,49 @@
     <!-- 头部导航 -->
     <div id="top-menu" class="dweb"></div>
     <!-- 侧边栏 左 导航 -->
-    <div id="left-menu" class="dweb"></div>
+    <div id="left-menu" :class="'dweb ' + mobile_left">
+      <i @click="showHideLeftMenu" id="left-btn" class="el-icon-menu"></i>
+      <!-- 导航栏 -->
+      <el-col :span="24" style="margin-top:80px">
+        <el-menu
+          class="el-menu-vertical-demo"
+          background-color="#00000000"
+          text-color="#fff"
+          active-text-color="#ffd04b"
+        >
+          <el-submenu index="1">
+            <template slot="title">
+              <i class="el-icon-folder-opened"></i>
+              <span>文章管理</span>
+            </template>
+            <el-menu-item-group>
+              <el-menu-item  @click="toAddArticle">发布文章</el-menu-item>
+              <el-menu-item index="1-2">文章列表</el-menu-item>
+            </el-menu-item-group>
+          </el-submenu>
+          <el-menu-item index="2">
+            <i class="el-icon-user"></i>
+            <span slot="title">用户管理</span>
+          </el-menu-item>
+          <el-menu-item index="4">
+            <i class="el-icon-money"></i>
+            <span slot="title">打赏记录</span>
+          </el-menu-item>
+          <el-menu-item index="5">
+            <i class="el-icon-s-operation"></i>
+            <span slot="title">栏目管理</span>
+          </el-menu-item>
+          <el-menu-item index="6">
+            <i class="el-icon-back"></i>
+            <span slot="title">退出登录</span>
+          </el-menu-item>
+        </el-menu>
+      </el-col>
+    </div>
     <!-- 页面内容 -->
-    <div id="content" class="">
-      <el-row :gutter="20">
-        <el-col :span="8">
-          <div class="dweb" style="height:250px"></div>
-        </el-col>
-        <el-col :span="8">
-          <div class="dweb" style="height:250px"></div>
-        </el-col>
-        <el-col :span="8">
-          <div class="dweb" style="height:250px"></div>
-        </el-col>
-      </el-row>
-      <el-row :gutter="20">
-        <el-col :span="8">
-          <div class="dweb" style="height:250px"></div>
-        </el-col>
-        <el-col :span="8">
-          <div class="dweb" style="height:250px"></div>
-        </el-col>
-        <el-col :span="8">
-          <div class="dweb" style="height:250px"></div>
-        </el-col>
-      </el-row>
-      <el-row :gutter="20">
-        <el-col :span="8">
-          <div class="dweb" style="height:250px"></div>
-        </el-col>
-        <el-col :span="8">
-          <div class="dweb" style="height:250px"></div>
-        </el-col>
-        <el-col :span="8">
-          <div class="dweb" style="height:250px"></div>
-        </el-col>
-      </el-row>
-      <el-row :gutter="20">
-        <el-col :span="8">
-          <div class="dweb" style="height:250px"></div>
-        </el-col>
-        <el-col :span="8">
-          <div class="dweb" style="height:250px"></div>
-        </el-col>
-        <el-col :span="8">
-          <div class="dweb" style="height:250px"></div>
-        </el-col>
-      </el-row>
+    <div id="content" :class="moblie_content">
+      <router-view></router-view>
+      
 
       <div id="footer" class="dweb">
         <span>Copyright © 2020 Dweb工作室</span>
@@ -62,8 +58,39 @@
 export default {
   data() {
     return {
-      value: true,
+      screenWidth: document.body.clientWidth,
+      mobile_left: "",
+      moblie_content: "",
     };
+  },
+  mounted() {
+    this.changeDevice();
+  },
+  methods: {
+    toAddArticle(){
+      this.$router.push({name:'AddArticle'})
+    },
+    changeDevice() {
+      if (this.screenWidth <= 500) {
+        this.mobile_left = "xs";
+        this.moblie_content = "xs";
+      }
+    },
+    showHideLeftMenu() {
+      if (this.mobile_left == "") {
+        this.mobile_left = "xs";
+      } else {
+        this.mobile_left = "";
+      }
+      //宽屏
+      if (this.screenWidth > 500) {
+        if (this.moblie_content == "") {
+          this.moblie_content = "xs";
+        } else {
+          this.moblie_content = "";
+        }
+      }
+    },
   },
 };
 </script>
