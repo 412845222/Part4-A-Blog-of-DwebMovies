@@ -87,3 +87,24 @@ body,html {
   color: #fff;
   border: none;
 }
+/* summernote */
+.note-btn {
+  color: #fff;
+}
+.note-btn:hover {
+  color: #ffc815;
+}
+.dropdown-menu {
+  background: #00000060;
+  color: #fff;
+}
+.dropdown-menu a {
+  color: #fff;
+}
+.popover {
+  background: #00000060;
+}
+.note-editable {
+  background: #00000060;
+  color: #fff;
+}

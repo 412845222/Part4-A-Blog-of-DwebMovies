@@ -21,13 +21,16 @@
         <div class="dweb"></div>
       </el-col>
       <el-col :xs="24" :lg="24">
-        <div class="dweb"></div>
+        <div class="dweb">
+          <div id="summernote">Hello Summernote</div>
+        </div>
       </el-col>
     </el-row>
   </div>
 </template>
 
 <script>
+import $ from 'jquery'
 export default {
   data() {
     return {
@@ -35,6 +38,17 @@ export default {
         title:'',
         describe:''
       }
+    }
+  },
+  mounted() {
+    this.summernote()
+  },
+  methods: {
+    summernote(){
+       $('#summernote').summernote({
+         height: 500,
+         lang: 'zh-CN'
+       });
     }
   },
 };
