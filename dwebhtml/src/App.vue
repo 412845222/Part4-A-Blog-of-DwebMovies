@@ -12,6 +12,7 @@
           background-color="#00000000"
           text-color="#fff"
           active-text-color="#ffd04b"
+          @select="chooseMenu"
         >
           <el-submenu index="1">
             <template slot="title">
@@ -19,7 +20,7 @@
               <span>文章管理</span>
             </template>
             <el-menu-item-group>
-              <el-menu-item  @click="toAddArticle">发布文章</el-menu-item>
+              <el-menu-item  index="/add-article">发布文章</el-menu-item>
               <el-menu-item index="1-2">文章列表</el-menu-item>
             </el-menu-item-group>
           </el-submenu>
@@ -35,7 +36,7 @@
             <i class="el-icon-s-operation"></i>
             <span slot="title">栏目管理</span>
           </el-menu-item>
-          <el-menu-item index="6">
+          <el-menu-item index="/logout">
             <i class="el-icon-back"></i>
             <span slot="title">退出登录</span>
           </el-menu-item>
@@ -67,8 +68,9 @@ export default {
     this.changeDevice();
   },
   methods: {
-    toAddArticle(){
-      this.$router.push({name:'AddArticle'})
+    chooseMenu(index){
+      console.log(index)
+      this.$router.push({path:index})
     },
     changeDevice() {
       if (this.screenWidth <= 500) {
