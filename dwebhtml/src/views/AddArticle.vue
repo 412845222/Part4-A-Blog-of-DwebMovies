@@ -12,13 +12,24 @@
               <el-input v-model="article_info.title"></el-input>
             </el-form-item>
             <el-form-item label="描述">
-              <el-input type="textarea" :rows="4" v-model="article_info.describe"></el-input>
+              <el-input
+                type="textarea"
+                :rows="4"
+                v-model="article_info.describe"
+              ></el-input>
             </el-form-item>
           </el-form>
         </div>
       </el-col>
       <el-col :xs="24" :lg="16">
         <div class="dweb">
+          <div v-for="(img, index) in cover_list" :key="index">
+            <el-image
+              style="width: 100px; height: 100px"
+              :src="img"
+              :fit="'cover'"
+            ></el-image>
+          </div>
           <el-button type="success" round>保存文章</el-button>
         </div>
       </el-col>
@@ -32,40 +43,50 @@
 </template>
 
 <script>
-import $ from 'jquery'
+import $ from "jquery";
 export default {
   data() {
     return {
-      article_info:{
-        title:'',
-        describe:''
-      }
-    }
+      article_info: {
+        title: "",
+        describe: "",
+      },
+      cover_list: [],
+    };
   },
   mounted() {
-    this.summernote()
+    this.summernote();
   },
   methods: {
-    summernote(){
-       $('#summernote').summernote({
-         width:'100%',
-         height: 500,
-         lang: 'zh-CN',
-         callbacks:{
-           //当输入
-           onChange(contents){
-             console.log(contents)
-           },
-           onImageUpload(files){
+    summernote() {
+      let self = this;
+      $("#summernote").summernote({
+        width: "100%",
+        height: 500,
+        lang: "zh-CN",
+        callbacks: {
+          //当输入
+          onChange(contents) {
+            console.log(contents);
+          },
+          onImageUpload(files) {
             //  console.log(files)
-              let img = files[0]
-              let imgData = new FileReader()
-              imgData.readAsDataURL(img)
+            let img = files[0];
+            let imgData = new FileReader();
+            imgData.readAsDataURL(img);
+            console.log(imgData);
+            imgData.onload = function() {
+              console.log(imgData.result);
+              //插入图片本身
               
-           }
-         }
-       });
-    }
+
+              //推入封面待选择
+              self.cover_list.push(imgData.result);
+            };
+          },
+        },
+      });
+    },
   },
 };
 </script>
@@ -87,6 +108,4 @@ export default {
   z-index: 1001;
   margin-top: 280px;
 }
-
-
 </style>
