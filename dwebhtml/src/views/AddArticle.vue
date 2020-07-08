@@ -69,6 +69,7 @@ export default {
           onChange(contents) {
             console.log(contents);
           },
+          //本地图片上传
           onImageUpload(files) {
             //  console.log(files)
             let img = files[0];
@@ -85,6 +86,8 @@ export default {
               self.cover_list.push(imgData.result);
             };
           },
+          //远程图片添加
+          onImage
           
         },
       });
