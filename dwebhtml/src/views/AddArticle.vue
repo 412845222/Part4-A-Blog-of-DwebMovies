@@ -60,8 +60,8 @@ export default {
             //  console.log(files)
               let img = files[0]
               let imgData = new FileReader()
-              imgData.src = img
-              console.log(imgData)
+              imgData.readAsDataURL(img)
+              
            }
          }
        });
