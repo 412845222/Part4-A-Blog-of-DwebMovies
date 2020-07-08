@@ -87,7 +87,12 @@ export default {
             };
           },
           //远程图片添加
-          onImage
+          onImageLinkInsert(url){
+            console.log(url)
+            let imgnode = document.createElement('img')
+            imgnode.src = url
+            $("#summernote").summernote('insertNode',imgnode)
+          }
           
         },
       });
