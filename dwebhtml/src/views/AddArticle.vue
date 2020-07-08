@@ -91,7 +91,7 @@ export default {
             console.log(url)
             let imgnode = document.createElement('img')
             imgnode.src = url
-            $("#summernote").summernote('insertNode',imgnode)
+            console.log(imgnode)
           }
           
         },
