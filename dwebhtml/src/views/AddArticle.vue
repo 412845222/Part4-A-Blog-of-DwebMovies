@@ -78,8 +78,9 @@ export default {
             imgData.onload = function() {
               console.log(imgData.result);
               //插入图片本身
-              
-
+              let imgnode = document.createElement('img')
+              imgnode.src = imgData.result
+              $("#summernote").summernote('inserNode',imgnode)
               //推入封面待选择
               self.cover_list.push(imgData.result);
             };
