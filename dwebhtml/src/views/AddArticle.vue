@@ -80,11 +80,12 @@ export default {
               //插入图片本身
               let imgnode = document.createElement('img')
               imgnode.src = imgData.result
-              $("#summernote").summernote('inserNode',imgnode)
+              $("#summernote").summernote('insertNode',imgnode)
               //推入封面待选择
               self.cover_list.push(imgData.result);
             };
           },
+          
         },
       });
     },
