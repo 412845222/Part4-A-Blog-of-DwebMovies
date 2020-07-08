@@ -87,6 +87,11 @@ body,html {
   color: #fff;
   border: none;
 }
+.el-textarea__inner {
+  background: #00000060;
+  border: none;
+  color: #fff;
+}
 /* summernote */
 .note-btn {
   color: #fff;

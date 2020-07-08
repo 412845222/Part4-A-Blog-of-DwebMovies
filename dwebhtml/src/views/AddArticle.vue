@@ -12,17 +12,19 @@
               <el-input v-model="article_info.title"></el-input>
             </el-form-item>
             <el-form-item label="描述">
-              <el-input type="textarea" v-model="article_info.describe"></el-input>
+              <el-input type="textarea" :rows="4" v-model="article_info.describe"></el-input>
             </el-form-item>
           </el-form>
         </div>
       </el-col>
       <el-col :xs="24" :lg="16">
-        <div class="dweb"></div>
+        <div class="dweb">
+          <el-button type="success" round>保存文章</el-button>
+        </div>
       </el-col>
       <el-col :xs="24" :lg="24">
         <div class="dweb">
-          <div id="summernote">Hello Summernote</div>
+          <div id="summernote"></div>
         </div>
       </el-col>
     </el-row>
@@ -46,8 +48,22 @@ export default {
   methods: {
     summernote(){
        $('#summernote').summernote({
+         width:'100%',
          height: 500,
-         lang: 'zh-CN'
+         lang: 'zh-CN',
+         callbacks:{
+           //当输入
+           onChange(contents){
+             console.log(contents)
+           },
+           onImageUpload(files){
+            //  console.log(files)
+              let img = files[0]
+              let imgData = new FileReader()
+              imgData.src = img
+              console.log(imgData)
+           }
+         }
        });
     }
   },
@@ -56,7 +72,7 @@ export default {
 
 <style scoped>
 .dweb {
-  /* height: 200px; */
+  min-height: 200px;
   padding: 20px 20px;
   display: flex;
   align-items: center;
@@ -64,6 +80,12 @@ export default {
 }
 .el-form-item {
   margin-top: 22px;
+}
+.dweb .el-button {
+  position: fixed;
+  right: 20px;
+  z-index: 1001;
+  margin-top: 280px;
 }
 
 
