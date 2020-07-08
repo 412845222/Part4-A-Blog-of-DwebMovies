@@ -25,9 +25,20 @@
         <div class="dweb">
           <div v-for="(img, index) in cover_list" :key="index">
             <el-image
-              style="width: 100px; height: 100px"
+              v-if="img == cover_img"
+              class="cover"
+              style="width: 150px; height: 150px"
               :src="img"
               :fit="'cover'"
+              @click="chooseCover(img)"
+            ></el-image>
+            <el-image
+              v-else
+              class=""
+              style="width: 150px; height: 150px"
+              :src="img"
+              :fit="'cover'"
+              @click="chooseCover(img)"
             ></el-image>
           </div>
           <el-button type="success" round>保存文章</el-button>
@@ -50,7 +61,9 @@ export default {
       article_info: {
         title: "",
         describe: "",
+        contents:""
       },
+      cover_img:'',
       cover_list: [],
     };
   },
@@ -67,7 +80,7 @@ export default {
         callbacks: {
           //当输入
           onChange(contents) {
-            console.log(contents);
+            self.article_info.contents = contents
           },
           //本地图片上传
           onImageUpload(files) {
@@ -75,9 +88,9 @@ export default {
             let img = files[0];
             let imgData = new FileReader();
             imgData.readAsDataURL(img);
-            console.log(imgData);
+            // console.log(imgData);
             imgData.onload = function() {
-              console.log(imgData.result);
+              // console.log(imgData.result);
               //插入图片本身
               let imgnode = document.createElement('img')
               imgnode.src = imgData.result
@@ -88,16 +101,32 @@ export default {
           },
           //远程图片添加
           onImageLinkInsert(url){
-            console.log(url)
+            // console.log(url)
             let imgnode = document.createElement('img')
             imgnode.src = url
-            console.log(imgnode)
-            $("#summernote").summernote('insertNode',imgnode[0])
+            // console.log(imgnode)
+            $("#summernote").summernote('insertNode',imgnode)
+            self.cover_list.push(url);
+          },
+          //删除媒体文件
+          onMediaDelete(target){
+            let imgData = target[0].src
+            console.log(imgData)
+            for (let i = 0; i < self.cover_list.length; i++) {
+              if (self.cover_list[i] == imgData) {
+                self.cover_list.splice(i,1)
+              }
+              
+            }
           }
           
         },
       });
     },
+    //选择封面
+    chooseCover(img){
+      this.cover_img = img
+    }
   },
 };
 </script>
@@ -109,6 +138,12 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+.dweb .el-image:hover {
+  border: 2px solid rgb(255, 252, 45);
+}
+.dweb .el-image.cover {
+  border: 2px solid rgb(255, 252, 45);
 }
 .el-form-item {
   margin-top: 22px;
