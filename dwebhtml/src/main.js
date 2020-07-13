@@ -16,7 +16,6 @@ import 'summernote/dist/summernote.css'
 import './assets/css/mystyle.css'
 
 Vue.use(ElementUI)
-Vue.config.productionTip = false
 
 new Vue({
   store,
