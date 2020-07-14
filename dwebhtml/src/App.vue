@@ -46,7 +46,6 @@
     <!-- 页面内容 -->
     <div id="content" :class="moblie_content">
       <router-view></router-view>
-      
 
       <div id="footer" class="dweb">
         <span>Copyright © 2020 Dweb工作室</span>
@@ -68,9 +67,9 @@ export default {
     this.changeDevice();
   },
   methods: {
-    chooseMenu(index){
-      console.log(index)
-      this.$router.push({path:index})
+    chooseMenu(index) {
+      console.log(index);
+      this.$router.push({ path: index });
     },
     changeDevice() {
       if (this.screenWidth <= 500) {
