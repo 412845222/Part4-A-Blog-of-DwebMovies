@@ -38,7 +38,11 @@ def add_article(request):
       image_name = datetime.datetime.now().strftime('%Y%m%d%H%M%S')+'-'+str(new_article.id)+'-'+str(img)
       image_data.save("upload/"+ image_name +".png")
       new_src = hostUrl + "upload/"+ image_name +".png"
+      content = content.replace(src,new_src)
     else:
       # print('本地图片')
       pass
+  
+  new_article.content = content
+  new_article.save()
   return Response('ok')
