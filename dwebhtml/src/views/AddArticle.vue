@@ -56,6 +56,7 @@
 <script>
 import $ from "jquery";
 import axios from 'axios'
+import Qs from 'qs'
 export default {
   data() {
     return {
@@ -80,7 +81,7 @@ export default {
         content:this.article_info.contents,
         cover:this.cover_img
       }
-      axios.post('http://127.0.0.1:9000/api/add-article/',article_data)
+      axios.post('http://127.0.0.1:9000/api/add-article/',Qs.stringify(article_data))
       .then(res => {
         console.log(res)
       })
