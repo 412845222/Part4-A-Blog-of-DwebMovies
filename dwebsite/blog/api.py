@@ -1,5 +1,6 @@
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
+<<<<<<< HEAD
 from blog.models import Article
 from bs4 import BeautifulSoup
 from PIL import Image
@@ -64,4 +65,11 @@ def add_article(request):
   new_article.describe = describe
   new_article.cover = cover
   new_article.save()
+=======
+
+
+
+@api_view(['POST'])
+def add_article(request):
+>>>>>>> c3f01e4aa3682a03251862640b539c669a160174
   return Response('ok')
