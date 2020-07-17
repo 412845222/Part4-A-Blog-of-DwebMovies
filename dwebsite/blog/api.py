@@ -4,6 +4,8 @@ from blog.models import Article
 from bs4 import BeautifulSoup
 from PIL import Image
 from io import BytesIO
+import os
+import base64
 import requests
 import datetime
 
@@ -39,10 +41,27 @@ def add_article(request):
       image_data.save("upload/"+ image_name +".png")
       new_src = hostUrl + "upload/"+ image_name +".png"
       content = content.replace(src,new_src)
+      # 封面设定
+      if cover == src:
+        cover = new_src
     else:
       # print('本地图片')
-      pass
+      image_data = base64.b64decode(src.split(',')[1])
+      image_name =datetime.datetime.now().strftime('%Y%m%d%H%M%S')+'-'+str(new_article.id)+'-' +str(img)+'.' + src.split(',')[0].split('/')[1].split(';')[0]
+      # print(image_name)
+      image_url = os.path.join('upload',image_name).replace('\\','/')
+      with open(image_url,'wb') as f:
+        f.write(image_data)
+      # print(image_url)
+      new_src = hostUrl + image_url
+      content = content.replace(src,new_src)
+      # 封面设定
+      if cover == src:
+        cover = new_src
+      
   
   new_article.content = content
+  new_article.describe = describe
+  new_article.cover = cover
   new_article.save()
   return Response('ok')
