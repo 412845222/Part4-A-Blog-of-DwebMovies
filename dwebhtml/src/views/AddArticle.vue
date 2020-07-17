@@ -41,7 +41,7 @@
               @click="chooseCover(img)"
             ></el-image>
           </div>
-          <el-button type="success" round>保存文章</el-button>
+          <el-button @click="submitArticle" type="success" round>保存文章</el-button>
         </div>
       </el-col>
       <el-col :xs="24" :lg="24">
@@ -55,6 +55,7 @@
 
 <script>
 import $ from "jquery";
+import axios from 'axios'
 export default {
   data() {
     return {
@@ -71,6 +72,22 @@ export default {
     this.summernote();
   },
   methods: {
+    //提交文章
+    submitArticle(){
+      let article_data = {
+        title:this.article_info.title,
+        describe:this.article_info.describe,
+        content:this.article_info.contents,
+        cover:this.cover_img
+      }
+      axios.post('http://127.0.0.1:9000/api/add-article/',article_data)
+      .then(res => {
+        console.log(res)
+      })
+      .catch(err => {
+        console.error(err); 
+      })
+    },
     summernote() {
       let self = this;
       $("#summernote").summernote({
