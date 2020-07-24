@@ -8,7 +8,7 @@ dwebsite/db2.sqlite3
 #前端
 /dwebhtml/node_modules
 /dwebhtml/node_modules
-/dwebhtml//dist
+/dwebhtml/dist
 
 # local env files
 /dwebhtml/.env.local
