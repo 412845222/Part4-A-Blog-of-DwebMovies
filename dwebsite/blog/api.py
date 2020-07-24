@@ -24,6 +24,7 @@ def dweb_login(request):
   if user:
     checkPwd = check_password(password,user[0].password)
     if checkPwd:
+      userinfo = Userinfo.objects.get_or_create(belong=user[0])
       userinfo = Userinfo.objects.get(belong=user[0])
       token = Token.objects.get_or_create(user=user[0])
       token = Token.objects.get(user=user[0])
@@ -45,7 +46,7 @@ def dweb_register(request):
   password = request.POST['password']
   password2 = request.POST['password2']
   #注册逻辑
-  user = Userinfo.objects.filter(username=username)
+  user = User.objects.filter(username=username)
   if user:
     return Response('repeat')
   else:

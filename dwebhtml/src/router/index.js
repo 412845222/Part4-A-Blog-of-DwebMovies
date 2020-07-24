@@ -10,6 +10,18 @@ Vue.use(VueRouter)
     name: 'Home',
     component: Home
   },
+  //登录
+  {
+    path: '/login',
+    name: 'Login',
+    component: () => import(/* webpackChunkName: "about" */ '../views/Login.vue')
+  },
+  //注册
+  {
+    path: '/register',
+    name: 'Register',
+    component: () => import(/* webpackChunkName: "about" */ '../views/Register.vue')
+  },
   {
     path: '/add-article',
     name: 'AddArticle',
