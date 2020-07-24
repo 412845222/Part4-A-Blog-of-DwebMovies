@@ -26,8 +26,6 @@
 </template>
 
 <script>
-import axios from 'axios'
-import Qs from 'qs'
 export default {
   data() {
     return {
@@ -46,22 +44,7 @@ export default {
         alert('表单填写完整')
         return
       }
-      axios({
-        url:'http://127.0.0.1:9000/api/dweb-login/',
-        method:'post',
-        data:Qs.stringify(this.formData)
-      }).then((res)=>{
-        if (res.data=='none') {
-          alert('用户名不存在')
-          return
-        }
-        if (res.data=='pwderr') {
-          alert('密码错误')
-          return
-        }
-        console.log(res.data)
-        this.$store.commit('saveUserinfo',res.data)
-      })
+      this.$store.dispatch('blogLogin',this.formData)
     }
   }
 };

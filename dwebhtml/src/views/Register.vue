@@ -27,8 +27,6 @@
 </template>
 
 <script>
-import axios from 'axios'
-import Qs from 'qs'
 export default {
   data() {
     return {
@@ -54,18 +52,7 @@ export default {
         return
       }
       //提交注册
-      axios({
-        url:'http://127.0.0.1:9000/api/dweb-register/',
-        method:'post',
-        data:Qs.stringify(this.formData)
-      }).then((res)=>{
-        if (res.data=='repeat') {
-          alert('用户名已存在')
-          return
-        }
-        console.log(res.data)
-        this.$store.commit('saveUserinfo',res.data)
-      })
+      this.$store.dispatch('blogRegister',this.formData)
     },
     toLogin(){
       this.$router.push({path:'/login'})
