@@ -16,7 +16,7 @@ import 'summernote/dist/summernote.css'
 import './assets/css/mystyle.css'
 
 Vue.use(ElementUI)
-
+Vue.config.devtools = true;
 new Vue({
   store,
   router,
