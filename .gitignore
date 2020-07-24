@@ -22,3 +22,4 @@
 # 其他
 /.vscode
 dwebsite/db2.sqlite3
+dwebsite/dwebsite/settings.py
