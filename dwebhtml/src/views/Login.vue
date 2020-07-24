@@ -35,6 +35,10 @@ export default {
       }
     }
   },
+  beforeRouteEnter (to, from, next) {
+    console.log('路由跳转'+from.path)
+    next()
+  },
   methods:{
     toRegister(){
       this.$router.push({path:'/register'})

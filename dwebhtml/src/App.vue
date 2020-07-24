@@ -68,7 +68,7 @@ export default {
   },
   methods: {
     chooseMenu(index) {
-      console.log(index);
+      // console.log(index);
       this.$router.push({ path: index });
     },
     changeDevice() {
