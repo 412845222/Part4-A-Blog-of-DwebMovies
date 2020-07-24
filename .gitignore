@@ -3,7 +3,6 @@
 /dwebsite/dwebsite/__pycache__
 /dwebsite/blog/migrations
 /dwebsite/blog/__pycache__
-/dwebsite/dwebsite/settings.py
 
 #前端
 /dwebhtml/node_modules
@@ -22,4 +21,4 @@
 # 其他
 /.vscode
 dwebsite/db2.sqlite3
-dwebsite/dwebsite/settings.py
+/dwebsite/dwebsite/settings.py
