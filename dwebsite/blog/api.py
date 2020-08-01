@@ -65,8 +65,30 @@ def dweb_register(request):
   }
   return Response(userinfo_data)
 
+#自动登录
+@api_view(['POST'])
+def dweb_autoLogin(request):
+  token = request.POST['token']
 
+  user_token = Token.objects.filter(key=token)
+  if user_token:
+    userinfo = Userinfo.objects.get(belong=user_token.user)
+    userinfo_data = {
+      'token':token,
+      'nickName':userinfo.nickName,
+      'headImg':userinfo.headImg
+    }
+    return Response(userinfo_data)
+  else:
+    return Response('tokenTimeout')
 
+#登出
+@api_view(['POST'])
+def dweb_logout(request):
+  token = request.POST['token']
+  user_token = Token.objects.get(key=token)
+  user_token.delete()
+  return Response('logout')
 
 @api_view(['POST'])
 def add_article(request):

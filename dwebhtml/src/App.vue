@@ -36,7 +36,7 @@
             <i class="el-icon-s-operation"></i>
             <span slot="title">栏目管理</span>
           </el-menu-item>
-          <el-menu-item index="/logout">
+          <el-menu-item v-if="authUserLogin" @click="blogLogout()">
             <i class="el-icon-back"></i>
             <span slot="title">退出登录</span>
           </el-menu-item>
@@ -62,6 +62,23 @@ export default {
       mobile_left: "",
       moblie_content: "",
     };
+  },
+  computed: {
+    //验证用户是否登录
+    authUserLogin(){
+      return this.$store.getters.isnotUserlogin
+    }
+  },
+  watch: {
+    //监听用户token
+    authUserLogin(newVal){ 
+      if (newVal==null) {
+        this.$router.push({path:'/login'})
+      }
+    }
+  },
+  created() {
+    this.$store.dispatch('tryAutoLogin')
   },
   mounted() {
     this.changeDevice();
@@ -92,6 +109,10 @@ export default {
         }
       }
     },
+    //退出登录
+    blogLogout(){
+      this.$store.dispatch('blogLogout',this.$store.getters.isnotUserlogin)
+    }
   },
 };
 </script>

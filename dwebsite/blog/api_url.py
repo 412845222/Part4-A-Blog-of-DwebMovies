@@ -7,5 +7,9 @@ urlpatterns = [
       #登录
       path('dweb-login/',api.dweb_login),
       #注册
-      path('dweb-register/',api.dweb_register)
+      path('dweb-register/',api.dweb_register),
+      #自动登录
+      path('auto-login/',api.dweb_autoLogin),
+      #登出
+      path('dweb-logout/',api.dweb_logout)
 ]

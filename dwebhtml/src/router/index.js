@@ -63,11 +63,11 @@ const router = new VueRouter({
 })
 
 //全局路由
-router.beforeEach((to,from,next)=>{
-  console.log(to.path)
-  console.log(from.path)
-  next()
-})
+// router.beforeEach((to,from,next)=>{
+//   console.log(to.path)
+//   console.log(from.path)
+//   next()
+// })
 
 
 
