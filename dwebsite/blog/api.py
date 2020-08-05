@@ -72,7 +72,7 @@ def dweb_autoLogin(request):
 
   user_token = Token.objects.filter(key=token)
   if user_token:
-    userinfo = Userinfo.objects.get(belong=user_token.user)
+    userinfo = Userinfo.objects.get(belong=user_token[0].user)
     userinfo_data = {
       'token':token,
       'nickName':userinfo.nickName,

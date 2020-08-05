@@ -21,7 +21,7 @@
             </template>
             <el-menu-item-group>
               <el-menu-item  index="/add-article">发布文章</el-menu-item>
-              <el-menu-item index="1-2">文章列表</el-menu-item>
+              <el-menu-item index="/article-list">文章列表</el-menu-item>
             </el-menu-item-group>
           </el-submenu>
           <el-menu-item index="2">
@@ -45,7 +45,7 @@
     </div>
     <!-- 页面内容 -->
     <div id="content" :class="moblie_content">
-      <router-view></router-view>
+      <router-view :screenWidth="screenWidth"></router-view>
 
       <div id="footer" class="dweb">
         <span>Copyright © 2020 Dweb工作室</span>

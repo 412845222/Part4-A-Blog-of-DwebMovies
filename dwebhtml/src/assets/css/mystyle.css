@@ -97,6 +97,29 @@ body,html {
   border: none;
   color: #fff;
 }
+.el-breadcrumb__inner a, .el-breadcrumb__inner.is-link {
+  color: #fff;
+}
+.el-breadcrumb__inner {
+  color: #fff;
+}
+.el-breadcrumb__item:last-child .el-breadcrumb__inner {
+  color: rgb(255, 208, 75)
+}
+.el-breadcrumb__item:last-child .el-breadcrumb__inner:hover {
+  color: #fff;
+}
+.el-pagination.is-background .el-pager li:not(.disabled).active {
+  background-color: rgb(255, 208, 75);
+  color: #FFF;
+}
+.el-pagination.is-background .btn-next, .el-pagination.is-background .btn-prev, .el-pagination.is-background .el-pager li {
+  background-color: #00000060;
+  color: #fff;
+}
+
+
+
 /* summernote */
 .note-btn {
   color: #fff;

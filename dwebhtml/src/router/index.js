@@ -29,10 +29,24 @@ Vue.use(VueRouter)
     name: 'Register',
     component: () => import(/* webpackChunkName: "about" */ '../views/Register.vue')
   },
+  //发布文章
   {
     path: '/add-article',
     name: 'AddArticle',
     component: () => import(/* webpackChunkName: "about" */ '../views/AddArticle.vue'),
+    beforeEnter: (to, from, next) => {
+      if (store.state.userinfo.token) {
+        next()
+      }else{
+        next('/login')
+      }
+    }
+  },
+  //文章列表
+  {
+    path: '/article-list',
+    name: 'ArticleList',
+    component: () => import(/* webpackChunkName: "about" */ '../views/ArticleList.vue'),
     beforeEnter: (to, from, next) => {
       if (store.state.userinfo.token) {
         next()
