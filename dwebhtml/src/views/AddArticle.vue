@@ -79,11 +79,23 @@ export default {
         title:this.article_info.title,
         describe:this.article_info.describe,
         content:this.article_info.contents,
-        cover:this.cover_img
+        cover:this.cover_img,
+        token:this.$store.getters.isnotUserlogin
       }
       axios.post('http://127.0.0.1:9000/api/add-article/',Qs.stringify(article_data))
       .then(res => {
         console.log(res)
+        if (res.data == 'notitle') {
+          alert('文章标题不可为空')
+          return
+        }
+        if (res.data == 'nologin') {
+          alert('用户信息错误')
+          return
+        }  
+        if (res.data == 'ok') {
+          window.location.reload()
+        }      
       })
       .catch(err => {
         console.error(err); 

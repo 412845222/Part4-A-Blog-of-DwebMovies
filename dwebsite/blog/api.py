@@ -2,6 +2,7 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework.authtoken.models import Token
 from django.contrib.auth.hashers import check_password,make_password
+from django.core.paginator import Paginator,EmptyPage,PageNotAnInteger
 from blog.models import Article,Userinfo
 from django.contrib.auth.models import User
 from bs4 import BeautifulSoup
@@ -90,13 +91,22 @@ def dweb_logout(request):
   user_token.delete()
   return Response('logout')
 
+
+#文章发布
 @api_view(['POST'])
 def add_article(request):
   title = request.POST['title']
   describe = request.POST['describe']
   cover = request.POST['cover']
   content = request.POST['content']
-  
+  token = request.POST['token']
+
+  user_token = Token.objects.filter(key=token)
+  if len(user_token)==0:
+    return Response('nologin')
+  if len(title) == 0:
+    return Response('notitle')
+
   #保存文章
   new_article = Article(title=title)
   new_article.save()
@@ -142,5 +152,56 @@ def add_article(request):
   new_article.content = content
   new_article.describe = describe
   new_article.cover = cover
+  new_article.belong = user_token[0].user
   new_article.save()
+  return Response('ok')
+
+#文章分页 数据列表
+@api_view(['GET'])
+def articleList(request):
+  page = request.GET['page']
+  pageSize = request.GET['pageSize']
+
+  articles = Article.objects.all()
+  total = len(articles)
+  paginator = Paginator(articles,pageSize)
+  try:
+    articles = paginator.page(page)
+  except PageNotAnInteger:
+    articles = paginator.page(1)
+  except EmptyPage:
+    articles = paginator.page(paginator.num_pages)
+  
+  # print(articles)
+  articles_data = []
+  for a in articles:
+    a_item = {
+      'title':a.title,
+      'cover':a.cover,
+      'nickName':'',
+      'id': a.id
+    }
+    article_user = a.belong
+    userinfo = Userinfo.objects.filter(belong=article_user)
+    if userinfo[0].nickName:
+      a_item['nickName'] = userinfo[0].nickName
+    else:
+      a_item['nickName'] = article_user.username
+    # print(a_item['nickName'])
+    articles_data.append(a_item)
+
+  return Response({'data':articles_data,'total':total})
+
+#删除文章
+@api_view(['DELETE'])
+def deleteArticle(request):
+  article_id = request.POST['id']
+  token = request.POST['token']
+
+  user_token = Token.objects.filter(key=token)
+  if len(user_token)==0:
+    return Response('nologin')
+  print(article_id)
+  article = Article.objects.get(id=article_id)
+  article.delete()
   return Response('ok')
