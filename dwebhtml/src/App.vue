@@ -24,7 +24,7 @@
               <el-menu-item index="/article-list">文章列表</el-menu-item>
             </el-menu-item-group>
           </el-submenu>
-          <el-menu-item index="2">
+          <el-menu-item index="/user-permission">
             <i class="el-icon-user"></i>
             <span slot="title">用户管理</span>
           </el-menu-item>

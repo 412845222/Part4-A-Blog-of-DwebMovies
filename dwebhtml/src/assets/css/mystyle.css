@@ -16,6 +16,16 @@ body,html {
   text-align: center;
   font-weight: 500;
 }
+.body.dweb {
+  margin-top: 10px;
+}
+.body.dweb h5 {
+  color: #fff;
+  font-weight: 700;
+}
+
+
+
 /* 头部导航 */
 #top-menu {
   width: 100%;
@@ -116,6 +126,10 @@ body,html {
 .el-pagination.is-background .btn-next, .el-pagination.is-background .btn-prev, .el-pagination.is-background .el-pager li {
   background-color: #00000060;
   color: #fff;
+}
+
+.el-divider--horizontal {
+  margin: 0px 0;
 }
 
 

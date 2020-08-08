@@ -17,5 +17,7 @@ urlpatterns = [
       #自动登录
       path('auto-login/',api.dweb_autoLogin),
       #登出
-      path('dweb-logout/',api.dweb_logout)
+      path('dweb-logout/',api.dweb_logout),
+      #鉴权
+      path('dweb-checkperm/',api.dweb_checkPerm)
 ]

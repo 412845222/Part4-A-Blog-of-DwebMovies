@@ -55,6 +55,26 @@ Vue.use(VueRouter)
       }
     }
   },
+  //用户管理
+  {
+    path: '/user-permission',
+    name: 'UserPerm',
+    component: () => import(/* webpackChunkName: "about" */ '../views/UserPerm.vue'),
+    beforeEnter: (to, from, next) => {
+      //判断用户登录
+      if (store.state.userinfo.token) {
+        //判断用户权限
+        // let checkInfo = {
+        //   contentType:'auth_user',
+        //   permissions:['add','change','delete','view']
+        // }
+        // store.dispatch("checkUserPerm",checkInfo)
+        next()
+      }else{
+        next('/login')
+      }
+    }
+  },
   {
     path: '/about',
     name: 'About',

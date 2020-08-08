@@ -12,8 +12,38 @@ import os
 import base64
 import requests
 import datetime
+import json
 
 hostUrl = 'http://127.0.0.1:9000/'
+
+
+#鉴权
+@api_view(['POST'])
+def dweb_checkPerm(request):
+  # print(request.POST)
+  token = request.POST['token']
+  content_type = request.POST['contentType']
+  permissions = json.loads(request.POST['permissions'])
+
+  # print(token)
+  # print(content_type)
+  # print(permissions[0])
+  user_token = Token.objects.filter(key=token)
+  if user_token:
+    user = user_token[0].user
+    for p in permissions:
+      model_str = content_type.split('_')[1]
+      perm_str = content_type + '.' + p+'_'+model_str
+      print(perm_str)
+      check = user.has_perm(perm_str)
+      print(check)
+      if check == False:
+        return Response('noperm')
+  else:
+    return Response('nologin')
+
+  return Response('ok')
+
 
 #登录
 @api_view(['POST'])

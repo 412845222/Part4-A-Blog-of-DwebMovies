@@ -99,6 +99,36 @@ export default new Vuex.Store({
       }).then((res)=>{
         console.log(res.data)
       })
+    },
+    //权限判断
+    checkUserPerm({getters},checkInfo){
+      //用户
+      let token = getters.isnotUserlogin
+      //表
+      let contentType = checkInfo.contentType
+      //权限
+      let permissions = checkInfo.permissions
+
+      axios({
+        url:"http://127.0.0.1:9000/api/dweb-checkperm/",
+        method:'post',
+        data:Qs.stringify({
+          token,
+          contentType,
+          permissions:JSON.stringify(permissions)
+        })
+      }).then((res)=>{
+        console.log(res.data)
+        if (res.data == 'nologin') {
+          alert('用户信息错误')
+          return
+        }
+        if (res.data == 'noperm') {
+          alert('用户权限不足，联系管理员')
+          router.push({path:'/'})
+          return
+        }
+      })
     }
   },
   modules: {},
