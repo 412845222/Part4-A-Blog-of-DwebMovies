@@ -64,12 +64,17 @@ Vue.use(VueRouter)
       //判断用户登录
       if (store.state.userinfo.token) {
         //判断用户权限
-        // let checkInfo = {
-        //   contentType:'auth_user',
-        //   permissions:['add','change','delete','view']
-        // }
-        // store.dispatch("checkUserPerm",checkInfo)
-        next()
+        let checkInfo = {
+          contentType:'auth_user',
+          permissions:['add','change','delete','view']
+        }
+        store.dispatch("checkUserPerm",checkInfo).then((res)=>{
+          // console.log(res)
+          if (res) {
+            next()
+          }
+        })
+        
       }else{
         next('/login')
       }

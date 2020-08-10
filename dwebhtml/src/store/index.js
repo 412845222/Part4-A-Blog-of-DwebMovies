@@ -101,15 +101,16 @@ export default new Vuex.Store({
       })
     },
     //权限判断
-    checkUserPerm({getters},checkInfo){
+    async checkUserPerm({getters},checkInfo){
       //用户
       let token = getters.isnotUserlogin
       //表
       let contentType = checkInfo.contentType
       //权限
       let permissions = checkInfo.permissions
-
-      axios({
+      //鉴权结果
+      let perm_data;
+      await axios({
         url:"http://127.0.0.1:9000/api/dweb-checkperm/",
         method:'post',
         data:Qs.stringify({
@@ -118,17 +119,22 @@ export default new Vuex.Store({
           permissions:JSON.stringify(permissions)
         })
       }).then((res)=>{
-        console.log(res.data)
+        // console.log(res.data)
         if (res.data == 'nologin') {
+          perm_data = false
           alert('用户信息错误')
           return
         }
         if (res.data == 'noperm') {
+          perm_data = false
           alert('用户权限不足，联系管理员')
-          router.push({path:'/'})
           return
         }
+        if (res.data == "ok") {
+          perm_data = true
+        }
       })
+      return perm_data
     }
   },
   modules: {},

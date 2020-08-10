@@ -104,23 +104,35 @@ export default {
     //删除文章
     deleteArticle(id) {
       if (confirm("是否确定删除")) {
-        axios({
-          url: "http://127.0.0.1:9000/api/delete-article/",
-          method: "delete",
-          data: Qs.stringify({
-            id,
-            token: this.$store.getters.isnotUserlogin,
-          }),
-          headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
-          },
-        }).then((res) => {
+        let checkInfo = {
+          contentType: "blog_article",
+          permissions: ["delete"],
+        };
+        this.$store.dispatch("checkUserPerm", checkInfo).then((res) => {
           console.log(res);
-          if (res.data == "nologin") {
-            alert("用户登录信息错误");
-            return;
+          if (res) {
+            axios({
+              url: "http://127.0.0.1:9000/api/delete-article/",
+              method: "delete",
+              data: Qs.stringify({
+                id,
+                token: this.$store.getters.isnotUserlogin,
+              }),
+              headers: {
+                "Content-Type": "application/x-www-form-urlencoded",
+              },
+            }).then((res) => {
+              console.log(res);
+              if (res.data == "nologin") {
+                alert("用户登录信息错误");
+                return;
+              }
+              if (res.data == "noperm") {
+                alert("权限不足");
+              }
+              this.getListData(this.currentPage);
+            });
           }
-          this.getListData(this.currentPage);
         });
       }
     },

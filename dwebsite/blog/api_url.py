@@ -19,5 +19,9 @@ urlpatterns = [
       #登出
       path('dweb-logout/',api.dweb_logout),
       #鉴权
-      path('dweb-checkperm/',api.dweb_checkPerm)
+      path('dweb-checkperm/',api.dweb_checkPerm),
+      #用户列表
+      path('dweb-userlist/',api.dweb_userlist),
+    #用户组
+      path('dweb-group/',api.dweb_group),
 ]

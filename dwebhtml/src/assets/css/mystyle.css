@@ -129,7 +129,23 @@ body,html {
 }
 
 .el-divider--horizontal {
-  margin: 0px 0;
+  margin: 10px 0;
+}
+
+.el-transfer-panel {
+  background: #00000060;
+}
+
+.el-transfer-panel .el-transfer-panel__header {
+  background: #00000060;
+}
+
+.el-transfer-panel .el-transfer-panel__header .el-checkbox .el-checkbox__label {
+  color: #fff;
+}
+
+.el-transfer-panel__item.el-checkbox {
+  color: #fff;
 }
 
 
