@@ -182,6 +182,29 @@ export default {
             ],
             checkList: [],
           },
+          {
+            name: "栏目管理",
+            content_type: "blog_lanmu",
+            perm_methods: [
+              {
+                name: "增",
+                codename: "add",
+              },
+              {
+                name: "删",
+                codename: "delete",
+              },
+              {
+                name: "改",
+                codename: "change",
+              },
+              {
+                name: "查",
+                codename: "view",
+              },
+            ],
+            checkList: [],
+          },
         ],
       },
       all_groups: [],
@@ -229,6 +252,10 @@ export default {
         if (res.data == "noperm") {
           alert("权限不足");
           return;
+        }
+        if (res.data=="ok") {
+          alert("用户权限分配成功")
+          return
         }
       })
       

@@ -32,7 +32,7 @@
             <i class="el-icon-money"></i>
             <span slot="title">打赏记录</span>
           </el-menu-item>
-          <el-menu-item index="5">
+          <el-menu-item index="/lanmu-admin">
             <i class="el-icon-s-operation"></i>
             <span slot="title">栏目管理</span>
           </el-menu-item>

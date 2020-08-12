@@ -80,6 +80,31 @@ Vue.use(VueRouter)
       }
     }
   },
+  //栏目管理
+  {
+    path: '/lanmu-admin',
+    name: 'LanmuAmind',
+    component: () => import(/* webpackChunkName: "about" */ '../views/LanmuAdmin.vue'),
+    beforeEnter: (to, from, next) => {
+      //判断用户登录
+      if (store.state.userinfo.token) {
+        //判断用户权限
+        let checkInfo = {
+          contentType:'blog_lanmu',
+          permissions:['add','change','delete','view']
+        }
+        store.dispatch("checkUserPerm",checkInfo).then((res)=>{
+          // console.log(res)
+          if (res) {
+            next()
+          }
+        })
+        
+      }else{
+        next('/login')
+      }
+    }
+  },
   {
     path: '/about',
     name: 'About',
