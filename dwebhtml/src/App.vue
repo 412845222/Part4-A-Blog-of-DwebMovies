@@ -70,12 +70,12 @@ export default {
     }
   },
   watch: {
-    //监听用户token
+    // 监听用户token
     authUserLogin(newVal){ 
       if (newVal==null) {
         this.$router.push({path:'/login'})
       }
-    }
+    },
   },
   created() {
     this.$store.dispatch('tryAutoLogin')

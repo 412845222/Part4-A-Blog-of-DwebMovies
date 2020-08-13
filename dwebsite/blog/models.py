@@ -14,9 +14,9 @@ class Userinfo(models.Model):
 #文章分类
 class Lanmu(models.Model):
     name = models.CharField(null=True,blank=True,max_length=80)
-    belong = models.ForeignKey('self',on_delete=models.CASCADE,null=True,blank=True,related_name='lanmu_children')
-    def __int__(self):
-        return self.id
+    belong = models.ForeignKey('self',on_delete=models.SET_NULL,null=True,blank=True,related_name='lanmu_children')
+    def __str__(self):
+        return self.name
 
 #文章
 class Article(models.Model):
@@ -25,7 +25,7 @@ class Article(models.Model):
     describe = models.CharField(null=True,blank=True,max_length=200)
     content = models.TextField()
     belong = models.ForeignKey(User,on_delete=models.CASCADE,null=True,blank=True,related_name='article_user')
-    belong_lanmu = models.ForeignKey(Lanmu,on_delete=models.CASCADE,null=True,blank=True,related_name='article_lanmu')
+    belong_lanmu = models.ForeignKey(Lanmu,on_delete=models.SET_NULL,null=True,blank=True,related_name='article_lanmu')
     def __int__(self):
         return self.id
 

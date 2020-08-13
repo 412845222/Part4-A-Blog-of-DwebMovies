@@ -24,4 +24,6 @@ urlpatterns = [
       path('dweb-userlist/',api.dweb_userlist),
     #用户组
       path('dweb-group/',api.dweb_group),
+    #栏目管理
+      path('dweb-lanmu/',api.dweb_lanmu),
 ]

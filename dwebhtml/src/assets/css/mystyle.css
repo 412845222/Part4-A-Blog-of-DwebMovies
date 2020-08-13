@@ -148,6 +148,20 @@ body,html {
   color: #fff;
 }
 
+.el-tree {
+  background: #00000060;
+  color: #fff;
+}
+.el-tree-node__content:hover {
+  background: #ffc81560;
+}
+.el-tree-node:focus > .el-tree-node__content {
+  background-color: #ffc81560;
+}
+.el-popover {
+  background: #000000;
+}
+
 
 
 /* summernote */

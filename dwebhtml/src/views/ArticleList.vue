@@ -89,6 +89,7 @@ export default {
         params: {
           page,
           pageSize: this.pageSize,
+          lanmu:'all'
         },
       }).then((res) => {
         console.log(res.data);
