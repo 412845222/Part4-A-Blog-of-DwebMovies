@@ -23,6 +23,22 @@ body,html {
   color: #fff;
   font-weight: 700;
 }
+.body.dweb .header {
+  text-align: center;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.clear {
+  clear: both;
+}
+.article-content {
+  color: #fff;
+}
+.article-content img {
+  margin: 5px 5px;
+}
+
 
 
 

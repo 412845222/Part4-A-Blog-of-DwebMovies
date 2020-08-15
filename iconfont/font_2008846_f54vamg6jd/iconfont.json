@@ -1,0 +1,30 @@
+{
+  "id": "2008846",
+  "name": "网易云课堂",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "579286",
+      "name": "点赞",
+      "font_class": "dianzan",
+      "unicode": "e60c",
+      "unicode_decimal": 58892
+    },
+    {
+      "icon_id": "2225231",
+      "name": "打赏",
+      "font_class": "dashang",
+      "unicode": "e672",
+      "unicode_decimal": 58994
+    },
+    {
+      "icon_id": "3050500",
+      "name": "收藏",
+      "font_class": "collection-b",
+      "unicode": "e60d",
+      "unicode_decimal": 58893
+    }
+  ]
+}

@@ -1,0 +1,29 @@
+@font-face {font-family: "iconfont";
+  src: url('iconfont.eot?t=1597509536177'); /* IE9 */
+  src: url('iconfont.eot?t=1597509536177#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('data:application/x-font-woff2;charset=utf-8;base64,d09GMgABAAAAAAPQAAsAAAAACBgAAAODAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHEIGVgCDFAqDWIMaATYCJAMQCwoABCAFhG0HShsGBxHVmwXJfibYthDW0eKE9867yCm0SM8EEeXUWd3ZkTEkucTEwbY/YBVAQACsTg2ORoAB6YUVb/kez3FejyvHuz5x77SxBOezLJc5Jk0MMA4ooL0xCvh3XqDYMHYT5UE8hgBeUstJKlau2RATDVglgPTs1qUdZsqKrmkUTAR3yUGNzMWFaUwzbgJz+O8lkfxNMHApwMa6nSt1pGyMP6a/GuuMpSUlIRvPDWjHQAE5gQZpW+ptjgqzOSm8zm2a3MCNRjBiAjH9HWdMCbfCOmXr/+MpDBA3oN4PQEExpyDGjwUQiAlIy3T9xToMgJdxwATcwELgLMBojfNZBpI8Sgr4s47wPnlsHVxrPXxoGauu+QJbnsiTJ9bqy5YEvRuX2s2WbUri27IipJZvtkS64J2+cewmn49Fy2asSCK+GVvGbfZ6eUuTJeMWT7caNiaxhWPtRs0ub/U4pvGT2CaPPjV6+HHE8tOZGzdefjzzxqNJGwIxJfrSdckaNVy6Ktm2K1maNNrk23SnSeMmO9YUqffsa5Fv3YdevT/X9I5Zvmn90/R/Q7gofU13mZfJd0SVKJ2PYXPKLZVUL+xlESPS9eVtst8RCj4t6zIvmNvOHZw3OPgg9CA4OCUuYeUKTZgyZXIX+6s9ePIUqB4cqLsok4O5Q7mC25M902nT6meSOW1aoowJRVmDKfUmPSk298GlaePmzjg85MzavLWTdyy1qNm6jzP3hzmFZ12oeO7GnQaJTSqH+jXRZf0xS29GvaEuAM5ZdVBVc/47E7VLjf2Zi+i0tf7nNuElv5m+K0q8aJ13LRe3o471g3mPPoFfZ9ZSQ/qrdBXAprUtw+IWVibyZSh4D21evIADCEZ5PYbOnkFK/SZ2DIMwUkFhkpGs6TnhwkdBuDEpAy85VDnuI1p/FKI9QHaTBAgR9sAgyBkoItwia/oruAj5AjcRFbw0lugLfWROZ12B0Qh6sD/Ijo6AHKKDxivG12Y4qeDsJ3LNCRjaPltY8EAeY0t9x1EkQGDaYRaew20jOJkKOmmTyDl1XSh7U+toV5oKjEbQg/1BdnQEOlx07vtXjK/NcE1fR/iJXPP4MLR9C/KiPVr1Xcsr9R1HkQCBaYdZcOMGswRn+byCTtrUI31OnTQotNW28+v3JzwCeAEbtRiiRIuLsI7ZHH8k4i5Tk1IWLx1o2w5XfCuRxioFAA==') format('woff2'),
+  url('iconfont.woff?t=1597509536177') format('woff'),
+  url('iconfont.ttf?t=1597509536177') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+ */
+  url('iconfont.svg?t=1597509536177#iconfont') format('svg'); /* iOS 4.1- */
+}
+
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-dianzan:before {
+  content: "\e60c";
+}
+
+.icon-dashang:before {
+  content: "\e672";
+}
+
+.icon-collection-b:before {
+  content: "\e60d";
+}
+

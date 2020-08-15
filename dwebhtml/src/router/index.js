@@ -105,6 +105,31 @@ Vue.use(VueRouter)
       }
     }
   },
+  //文章内容页
+  {
+    path: '/article',
+    name: 'Article',
+    component: () => import(/* webpackChunkName: "about" */ '../views/Article.vue'),
+    beforeEnter: (to, from, next) => {
+      //判断用户登录
+      if (store.state.userinfo.token) {
+        //判断用户权限
+        let checkInfo = {
+          contentType:'blog_article',
+          permissions:['view']
+        }
+        store.dispatch("checkUserPerm",checkInfo).then((res)=>{
+          // console.log(res)
+          if (res) {
+            next()
+          }
+        })
+        
+      }else{
+        next('/login')
+      }
+    }
+  },
   {
     path: '/about',
     name: 'About',

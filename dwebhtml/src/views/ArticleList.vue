@@ -35,6 +35,7 @@
               </el-col>
               <el-col class="text-item" :xs="12" :lg="7">
                 <el-button
+                  @click="toArticle(item.id)"
                   type="success"
                   icon="el-icon-search"
                   circle
@@ -82,6 +83,10 @@ export default {
     this.getListData(this.currentPage);
   },
   methods: {
+    //跳转内容页
+    toArticle(id){
+      this.$router.push({path:'/article',query:{id:id}})
+    },
     getListData(page) {
       axios({
         url: "http://127.0.0.1:9000/api/article-list/",
@@ -92,7 +97,7 @@ export default {
           lanmu:'all'
         },
       }).then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         this.article_list = res.data.data;
         this.total = res.data.total;
       });

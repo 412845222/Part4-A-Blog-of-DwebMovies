@@ -1,8 +1,11 @@
 from django.urls import path
-from blog import api
+from blog import api,payapi
+
 
 urlpatterns = [
     #文章管理、
+      #文章数据获取 查看
+      path('article-data/',api.articleData),
       #文章发布
       path('add-article/',api.add_article),
       #文章列表
@@ -26,4 +29,10 @@ urlpatterns = [
       path('dweb-group/',api.dweb_group),
     #栏目管理
       path('dweb-lanmu/',api.dweb_lanmu),
+    #文章用户互动
+      path('pinglun/',api.dwebPinglun),
+      path('user-article-info/',api.userArticleInfo),
+      path('article-like/',api.articleLike),
+      path('article-favor/',api.articleFavor),
+      path('get-alipay-url/',payapi.getAlipayUrl)
 ]

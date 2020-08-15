@@ -3,7 +3,7 @@ from rest_framework.decorators import api_view
 from rest_framework.authtoken.models import Token
 from django.contrib.auth.hashers import check_password, make_password
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from blog.models import Article, Userinfo, Lanmu
+from blog.models import Article, Userinfo, Lanmu, Pinglun, Favourite, Like, PayOrder
 from django.contrib.auth.models import User, Group, Permission, ContentType
 from bs4 import BeautifulSoup
 from PIL import Image
@@ -129,8 +129,38 @@ def dweb_logout(request):
     return Response('logout')
 
 
+# 文章内容获取
+@api_view(['GET'])
+def articleData(request):
+  article_id = request.GET['article_id']
+
+  article = Article.objects.get(id=article_id)
+
+  article_data = {
+    "title": article.title,
+    "cover": article.cover,
+    "describe": article.describe,
+    "content": article.content,
+    "nickName": article.belong.username,
+    "lanmu": "",
+    "pre_id": 0,
+    "next_id": 0,
+  }
+
+  pre_data = Article.objects.filter(id__lt=article_id)
+  if pre_data:
+    article_data["pre_id"] = pre_data.last().id
+  next_data = Article.objects.filter(id__gt=article_id)
+  if next_data:
+    article_data["next_id"] = next_data.first().id
+
+  if article.belong_lanmu:
+    article_data["lanmu"] = article.belong_lanmu.name
+  return Response(article_data)
+
+
 # 文章发布
-@api_view(['POST','PUT'])
+@api_view(['POST', 'PUT'])
 def add_article(request):
     token = request.POST['token']
     if request.method == "PUT":
@@ -141,7 +171,7 @@ def add_article(request):
         print(checkUser)
         if checkUser != 'perm_pass':
             return Response(checkUser)
-        
+
         lanmu_id = request.POST['lanmu_id']
         article_id = request.POST['article_id']
 
@@ -151,12 +181,10 @@ def add_article(request):
         article.save()
         return Response('ok')
 
-
     title = request.POST['title']
     describe = request.POST['describe']
     cover = request.POST['cover']
     content = request.POST['content']
-    
 
     user_token = Token.objects.filter(key=token)
     if len(user_token) == 0:
@@ -224,9 +252,9 @@ def articleList(request):
     pageSize = request.GET['pageSize']
     lanmu = request.GET['lanmu']
 
-    if lanmu=='all':
+    if lanmu == 'all':
         articles = Article.objects.all()
-    elif lanmu=='nobelong':
+    elif lanmu == 'nobelong':
         articles = Article.objects.filter(belong_lanmu=None)
     else:
         articles = Article.objects.filter(belong_lanmu__name=lanmu)
@@ -412,7 +440,7 @@ def dweb_lanmu(request):
         lanmu_data = loopGetLanmu(lanmu)
         return Response(lanmu_data)
 
-    if request.method=="DELETE":
+    if request.method == "DELETE":
         token = request.POST['token']
         permList = [
             'blog.delete_lanmu'
@@ -421,7 +449,7 @@ def dweb_lanmu(request):
         print(checkUser)
         if checkUser != 'perm_pass':
             return Response(checkUser)
-        
+
         lanmu_id = request.POST['id']
 
         lanmu = Lanmu.objects.get(id=lanmu_id)
@@ -448,6 +476,8 @@ def dweb_lanmu(request):
         return Response('ok')
 
 # 循环获取栏目数据
+
+
 def loopGetLanmu(lanmu_list):
     lanmu_data = []
     for lanmu in lanmu_list:
@@ -455,7 +485,7 @@ def loopGetLanmu(lanmu_list):
             "id": lanmu.id,
             "label": lanmu.name,
             "children": [],
-            "article_num":len(lanmu.article_lanmu.all())
+            "article_num": len(lanmu.article_lanmu.all())
         }
         children = lanmu.lanmu_children.all()
         print(lanmu)
@@ -498,3 +528,131 @@ def loopSaveLanmu(tree_data, parent_id):
                     loopSaveLanmu(tree['children'], new_lanmu.id)
 
     return
+
+
+@api_view(['GET', 'POST'])
+def dwebPinglun(request):
+  if request.method == "GET":
+    article_id = request.GET['article_id']
+    pagesize = request.GET['pagesize']
+    page = request.GET['page']
+    article = Article.objects.get(id=article_id)
+
+    pingluns = Pinglun.objects.filter(belong=article)[::-1]
+
+    total = len(pingluns)
+    paginator = Paginator(pingluns, pagesize)
+    try:
+        pingluns = paginator.page(page)
+    except PageNotAnInteger:
+        pingluns = paginator.page(1)
+    except EmptyPage:
+        pingluns = paginator.page(paginator.num_pages)
+
+    pinglun_data = []
+    for pinglun in pingluns:
+      pinglun_item = {
+        "nickName": pinglun.belong_user.username,
+        "text": pinglun.text
+      }
+      pinglun_data.append(pinglun_item)
+    return Response({"data": pinglun_data, "total": total})
+
+  if request.method == "POST":
+    token = request.POST['token']
+    permList = [
+          'blog.view_article'
+      ]
+    checkUser = userLoginAndPerm(token, permList)
+    print(checkUser)
+    if checkUser != 'perm_pass':
+        return Response(checkUser)
+    article_id = request.POST['article_id']
+    text = request.POST['text']
+
+    article = Article.objects.get(id=article_id)
+    user = Token.objects.get(key=token).user
+
+    new_pinglun = Pinglun(belong_user=user, belong=article, text=text)
+    new_pinglun.save()
+    return Response('ok')
+
+
+@api_view(['POST'])
+def userArticleInfo(request):
+  token = request.POST['token']
+
+  user_token = Token.objects.filter(key=token)
+  if len(user_token) == 0:
+    return Response('nologin')
+
+  article_id = request.POST['article_id']
+  article = Article.objects.get(id=article_id)
+  user = user_token[0].user
+
+  user_article_info = {
+    "like": False,
+    "favor": False,
+    "dashang": False
+  }
+
+  liked = Like.objects.filter(belong=article, belong_user=user)
+  if liked:
+    user_article_info['like'] = True
+
+  favored = Favourite.objects.filter(belong=article, belong_user=user)
+  if favored:
+    user_article_info['favor'] = True
+
+  order_list = PayOrder.objects.filter(belong=article, belong_user=user)
+  for order in order_list:
+    if order.status == True:
+      user_article_info["dashang"] = True
+
+  return Response(user_article_info)
+
+
+@api_view(['POST'])
+def articleLike(request):
+    print('点赞')
+    token = request.POST['token']
+
+    user_token = Token.objects.filter(key=token)
+    if len(user_token) == 0:
+        return Response('nologin')
+
+    article_id = request.POST['article_id']
+    article = Article.objects.get(id=article_id)
+
+    liked = Like.objects.filter(belong=article,belong_user=user_token[0].user)
+
+    if liked:
+        liked[0].delete()
+        return Response('ok')
+    else:
+        new_like = Like(belong=article,belong_user=user_token[0].user)
+        new_like.save()
+        return Response('ok')
+
+
+@api_view(['POST'])
+def articleFavor(request):
+    print('收藏')
+    token = request.POST['token']
+
+    user_token = Token.objects.filter(key=token)
+    if len(user_token) == 0:
+        return Response('nologin')
+
+    article_id = request.POST['article_id']
+    article = Article.objects.get(id=article_id)
+
+    favored = Favourite.objects.filter(belong=article,belong_user=user_token[0].user)
+
+    if favored:
+        favored[0].delete()
+        return Response('ok')
+    else:
+        new_favor = Favourite(belong=article,belong_user=user_token[0].user)
+        new_favor.save()
+        return Response('ok')
