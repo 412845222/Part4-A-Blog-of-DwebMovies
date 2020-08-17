@@ -179,7 +179,7 @@ export default {
     toDashang() {
       axios({
         method: "post",
-        url: "http://127.0.0.1:9000/api/get-alipay-url/",
+        url: "https://api.study.dweb.club/api/get-alipay-url/",
         data: Qs.stringify({
           token: this.$store.getters.isnotUserlogin,
           article_id: this.article_id,
@@ -193,13 +193,14 @@ export default {
         link.click();
         if (confirm("支付完成了嘛？")) {
           console.log("ok");
+          this.getUserArticleInfo()
         }
       });
     },
     //点赞
     toLike() {
       axios({
-        url: "http://127.0.0.1:9000/api/article-like/",
+        url: "https://api.study.dweb.club/api/article-like/",
         method: "post",
         data: Qs.stringify({
           token: this.$store.getters.isnotUserlogin,
@@ -219,7 +220,7 @@ export default {
     //收藏
     toFavor() {
       axios({
-        url: "http://127.0.0.1:9000/api/article-favor/",
+        url: "https://api.study.dweb.club/api/article-favor/",
         method: "post",
         data: Qs.stringify({
           token: this.$store.getters.isnotUserlogin,
@@ -241,7 +242,7 @@ export default {
       let token = this.$store.getters.isnotUserlogin;
       if (token) {
         axios({
-          url: "http://127.0.0.1:9000/api/user-article-info/",
+          url: "https://api.study.dweb.club/api/user-article-info/",
           method: "post",
           data: Qs.stringify({
             token: token,
@@ -256,7 +257,7 @@ export default {
     //获取文章评论
     getAllPinglun(page, pagesize) {
       axios({
-        url: "http://127.0.0.1:9000/api/pinglun/",
+        url: "https://api.study.dweb.club/api/pinglun/",
         method: "get",
         params: {
           page,
@@ -277,7 +278,7 @@ export default {
       }
 
       axios({
-        url: "http://127.0.0.1:9000/api/pinglun/",
+        url: "https://api.study.dweb.club/api/pinglun/",
         method: "post",
         data: Qs.stringify({
           token: this.$store.getters.isnotUserlogin,
@@ -314,7 +315,7 @@ export default {
     getArticleData(id) {
       // console.log(id);
       axios({
-        url: "http://127.0.0.1:9000/api/article-data/",
+        url: "https://api.study.dweb.club/api/article-data/",
         method: "get",
         params: {
           article_id: id,

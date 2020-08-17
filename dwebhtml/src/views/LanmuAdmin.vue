@@ -161,7 +161,7 @@ export default {
     },
     saveArticleToLanmu(article_id) {
       axios({
-        url: "http://127.0.0.1:9000/api/add-article/",
+        url: "https://api.study.dweb.club/api/add-article/",
         method: "put",
         data: Qs.stringify({
           token: this.$store.getters.isnotUserlogin,
@@ -187,7 +187,7 @@ export default {
     //获取栏目数据
     getLanmuTree() {
       axios({
-        url: "http://127.0.0.1:9000/api/dweb-lanmu/",
+        url: "https://api.study.dweb.club/api/dweb-lanmu/",
         method: "get",
       }).then((res) => {
         console.log(res.data);
@@ -198,7 +198,7 @@ export default {
     saveLanmuTree() {
       console.log(this.lanmu_tree);
       axios({
-        url: "http://127.0.0.1:9000/api/dweb-lanmu/",
+        url: "https://api.study.dweb.club/api/dweb-lanmu/",
         method: "put",
         data: Qs.stringify({
           token: this.$store.getters.isnotUserlogin,
@@ -257,7 +257,7 @@ export default {
     },
     getListData(page, lanmu) {
       axios({
-        url: "http://127.0.0.1:9000/api/article-list/",
+        url: "https://api.study.dweb.club/api/article-list/",
         method: "get",
         params: {
           page,
@@ -278,7 +278,7 @@ export default {
     remove(_, data) {
       console.log(data.id);
       axios({
-        url: "http://127.0.0.1:9000/api/dweb-lanmu/",
+        url: "https://api.study.dweb.club/api/dweb-lanmu/",
         method: "delete",
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",

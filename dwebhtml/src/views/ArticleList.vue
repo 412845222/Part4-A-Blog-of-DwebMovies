@@ -89,7 +89,7 @@ export default {
     },
     getListData(page) {
       axios({
-        url: "http://127.0.0.1:9000/api/article-list/",
+        url: "https://api.study.dweb.club/api/article-list/",
         method: "get",
         params: {
           page,
@@ -118,7 +118,7 @@ export default {
           console.log(res);
           if (res) {
             axios({
-              url: "http://127.0.0.1:9000/api/delete-article/",
+              url: "https://api.study.dweb.club/api/delete-article/",
               method: "delete",
               data: Qs.stringify({
                 id,

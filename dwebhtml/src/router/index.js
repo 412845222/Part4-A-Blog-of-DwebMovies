@@ -116,7 +116,7 @@ Vue.use(VueRouter)
         //判断用户权限
         let checkInfo = {
           contentType:'blog_article',
-          permissions:['view']
+          permissions:[]
         }
         store.dispatch("checkUserPerm",checkInfo).then((res)=>{
           // console.log(res)

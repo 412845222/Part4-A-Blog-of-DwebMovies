@@ -17,6 +17,7 @@ import './assets/css/mystyle.css'
 
 Vue.use(ElementUI)
 Vue.config.devtools = true;
+Vue.config.productionTip = false;
 new Vue({
   store,
   router,

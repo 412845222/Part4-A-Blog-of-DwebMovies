@@ -14,7 +14,7 @@ import requests
 import datetime
 import json
 
-hostUrl = 'http://127.0.0.1:9000/'
+hostUrl = 'https://api.study.dweb.club/'
 
 
 # 鉴权

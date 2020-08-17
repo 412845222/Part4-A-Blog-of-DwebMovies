@@ -19,6 +19,6 @@ from django.conf.urls.static import static
 from django.conf import settings
 from blog import api_url
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('dwebcms-admin/', admin.site.urls),
     path('api/',include(api_url))
 ] + static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

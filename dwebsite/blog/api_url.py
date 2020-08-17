@@ -34,5 +34,6 @@ urlpatterns = [
       path('user-article-info/',api.userArticleInfo),
       path('article-like/',api.articleLike),
       path('article-favor/',api.articleFavor),
-      path('get-alipay-url/',payapi.getAlipayUrl)
+      path('get-alipay-url/',payapi.getAlipayUrl),
+      path('pay_result/',payapi.payResult)
 ]

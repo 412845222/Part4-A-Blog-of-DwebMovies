@@ -82,8 +82,14 @@ export default {
         cover:this.cover_img,
         token:this.$store.getters.isnotUserlogin
       }
-      axios.post('http://127.0.0.1:9000/api/add-article/',Qs.stringify(article_data))
-      .then(res => {
+      axios({
+        url:"https://api.study.dweb.club/api/add-article/",
+        headers:{
+          "Content-Type":"application/x-www-form-urlencoded"
+        },
+        data:Qs.stringify(article_data),
+        method:"post"
+      }).then(res => {
         console.log(res)
         if (res.data == 'notitle') {
           alert('文章标题不可为空')

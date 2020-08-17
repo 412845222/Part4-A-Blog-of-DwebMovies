@@ -236,7 +236,7 @@ export default {
 
       //提交用户组分配
       axios({
-        url:"http://127.0.0.1:9000/api/dweb-group/",
+        url:"https://api.study.dweb.club/api/dweb-group/",
         method:"post",
         data:Qs.stringify({
           token:this.$store.getters.isnotUserlogin,
@@ -268,7 +268,7 @@ export default {
     //用户列表
     getUserList() {
       axios({
-        url: "http://127.0.0.1:9000/api/dweb-userlist/",
+        url: "https://api.study.dweb.club/api/dweb-userlist/",
         method: "get",
       }).then((res) => {
         console.log(res.data);
@@ -285,7 +285,7 @@ export default {
     //获取所有用户组
     getAllUserGroup() {
       axios({
-        url: "http://127.0.0.1:9000/api/dweb-group/",
+        url: "https://api.study.dweb.club/api/dweb-group/",
         method: "get",
       }).then((res) => {
         console.log(res.data);
@@ -295,7 +295,7 @@ export default {
     //删除用户组
     deleteGroup(name) {
       axios({
-        url: "http://127.0.0.1:9000/api/dweb-group/",
+        url: "https://api.study.dweb.club/api/dweb-group/",
         method: "delete",
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
@@ -347,7 +347,7 @@ export default {
         this.$store.dispatch("checkUserPerm", checkInfo).then((res) => {
           if (res) {
             axios({
-              url: "http://127.0.0.1:9000/api/dweb-group/",
+              url: "https://api.study.dweb.club/api/dweb-group/",
               method: "put",
               data: Qs.stringify({
                 token: this.$store.getters.isnotUserlogin,

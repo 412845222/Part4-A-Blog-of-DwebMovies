@@ -29,7 +29,7 @@ export default new Vuex.Store({
     //登录
     blogLogin({ commit }, formData) {
       axios({
-        url: "http://127.0.0.1:9000/api/dweb-login/",
+        url: "https://api.study.dweb.club/api/dweb-login/",
         method: "post",
         data: Qs.stringify(formData),
       }).then((res) => {
@@ -51,7 +51,7 @@ export default new Vuex.Store({
     //注册
     blogRegister({ commit }, formData) {
       axios({
-        url: "http://127.0.0.1:9000/api/dweb-register/",
+        url: "https://api.study.dweb.club/api/dweb-register/",
         method: "post",
         data: Qs.stringify(formData),
       }).then((res) => {
@@ -71,7 +71,7 @@ export default new Vuex.Store({
       let token = localStorage.getItem('token')
       if (token) {
         axios({
-          url:"http://127.0.0.1:9000/api/auto-login/",
+          url:"https://api.study.dweb.club/api/auto-login/",
           method:"post",
           data:Qs.stringify({token})
         }).then((res)=>{
@@ -93,7 +93,7 @@ export default new Vuex.Store({
       localStorage.removeItem('token')
       // router.push({path:'/'})
       axios({
-        url:"http://127.0.0.1:9000/api/dweb-logout/",
+        url:"https://api.study.dweb.club/api/dweb-logout/",
         method:'post',
         data:Qs.stringify({token})
       }).then((res)=>{
@@ -111,7 +111,7 @@ export default new Vuex.Store({
       //鉴权结果
       let perm_data;
       await axios({
-        url:"http://127.0.0.1:9000/api/dweb-checkperm/",
+        url:"https://api.study.dweb.club/api/dweb-checkperm/",
         method:'post',
         data:Qs.stringify({
           token,
