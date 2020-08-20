@@ -151,6 +151,7 @@ export default {
     //选择栏目查看文章
     choosed_lanmu_articleList(node) {
       let lanmu_name = node.label;
+      this.currentLanmu = node.label
       this.getListData(1, lanmu_name);
     },
     //选择文章保存栏目
@@ -273,7 +274,7 @@ export default {
     currentChange(val) {
       // console.log("第" + val + "页");
       this.currentPage = val;
-      this.getListData(val);
+      this.getListData(val,this.currentLanmu);
     },
     remove(_, data) {
       console.log(data.id);

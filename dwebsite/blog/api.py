@@ -251,7 +251,7 @@ def articleList(request):
     page = request.GET['page']
     pageSize = request.GET['pageSize']
     lanmu = request.GET['lanmu']
-
+    
     if lanmu == 'all':
         articles = Article.objects.all()
     elif lanmu == 'nobelong':
