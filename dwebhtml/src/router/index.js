@@ -111,7 +111,6 @@ Vue.use(VueRouter)
     name: 'Article',
     component: () => import(/* webpackChunkName: "about" */ '../views/Article.vue'),
     beforeEnter: (to, from, next) => {
-      //判断用户登录
       if (store.state.userinfo.token) {
         //判断用户权限
         let checkInfo = {

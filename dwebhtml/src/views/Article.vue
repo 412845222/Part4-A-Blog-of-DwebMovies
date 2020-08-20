@@ -56,7 +56,7 @@
 
       <el-col :xs="24" :lg="8">
         <div class="body dweb">
-          <el-image :src="article_data.cover" :fit="'cover'"></el-image>
+          <img class="article-cover" :src="article_data.cover">
         </div>
         <!-- 点赞收藏打赏 -->
         <div class="body dweb like-btn">
@@ -163,12 +163,13 @@ export default {
   },
   watch: {
     $route(to) {
-      // console.log(to)
       this.article_id = to.query.id;
       this.getArticleData(to.query.id);
-
       this.getAllPinglun(1, this.pinglun_pageSize);
     },
+  },
+  created(){
+
   },
   mounted() {
     this.getArticleData(this.article_id);
@@ -351,5 +352,8 @@ export default {
 .body.dweb.pinglun-item {
   color: #fff;
   font-size: 16px;
+}
+.article-cover {
+  width: 100%;
 }
 </style>

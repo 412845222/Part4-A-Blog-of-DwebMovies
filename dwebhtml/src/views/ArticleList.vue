@@ -85,6 +85,7 @@ export default {
   methods: {
     //跳转内容页
     toArticle(id){
+      console.log('开始跳转')
       this.$router.push({path:'/article',query:{id:id}})
     },
     getListData(page) {
