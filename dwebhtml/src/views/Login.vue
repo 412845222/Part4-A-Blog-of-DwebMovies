@@ -26,6 +26,7 @@
 </template>
 
 <script>
+import swal from "sweetalert"
 export default {
   data() {
     return {
@@ -45,7 +46,8 @@ export default {
     },
     blogLogin(){
       if (this.formData.username.length==0 || this.formData.password.length==0) {
-        alert('表单填写完整')
+        // alert('表单填写完整')
+        swal('错误','表单填写完整','error')
         return
       }
       this.$store.dispatch('blogLogin',this.formData)

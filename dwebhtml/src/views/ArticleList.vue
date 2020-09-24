@@ -69,6 +69,7 @@
 <script>
 import axios from "axios";
 import Qs from "qs";
+import swal from "sweetalert";
 export default {
   props: ["screenWidth"],
   data() {
@@ -84,9 +85,9 @@ export default {
   },
   methods: {
     //跳转内容页
-    toArticle(id){
-      console.log('开始跳转')
-      this.$router.push({path:'/article',query:{id:id}})
+    toArticle(id) {
+      console.log("开始跳转");
+      this.$router.push({ path: "/article", query: { id: id } });
     },
     getListData(page) {
       axios({
@@ -95,10 +96,10 @@ export default {
         params: {
           page,
           pageSize: this.pageSize,
-          lanmu:'all'
+          lanmu: "all",
         },
       }).then((res) => {
-        // console.log(res.data);
+        console.log(res.data);
         this.article_list = res.data.data;
         this.total = res.data.total;
       });
@@ -110,38 +111,47 @@ export default {
     },
     //删除文章
     deleteArticle(id) {
-      if (confirm("是否确定删除")) {
-        let checkInfo = {
-          contentType: "blog_article",
-          permissions: ["delete"],
-        };
-        this.$store.dispatch("checkUserPerm", checkInfo).then((res) => {
-          console.log(res);
-          if (res) {
-            axios({
-              url: "https://api.study.dweb.club/api/delete-article/",
-              method: "delete",
-              data: Qs.stringify({
-                id,
-                token: this.$store.getters.isnotUserlogin,
-              }),
-              headers: {
-                "Content-Type": "application/x-www-form-urlencoded",
-              },
-            }).then((res) => {
-              console.log(res);
-              if (res.data == "nologin") {
-                alert("用户登录信息错误");
-                return;
-              }
-              if (res.data == "noperm") {
-                alert("权限不足");
-              }
-              this.getListData(this.currentPage);
-            });
-          }
-        });
-      }
+      swal({
+        title: "删除提醒",
+        text: "是否确定删除",
+        icon: "warning",
+        buttons: true,
+      }).then((willDelete) => {
+        if (willDelete) {
+          let checkInfo = {
+            contentType: "blog_article",
+            permissions: ["delete"],
+          };
+          this.$store.dispatch("checkUserPerm", checkInfo).then((res) => {
+            console.log(res);
+            if (res) {
+              axios({
+                url: "https://api.study.dweb.club/api/delete-article/",
+                method: "delete",
+                data: Qs.stringify({
+                  id,
+                  token: this.$store.getters.isnotUserlogin,
+                }),
+                headers: {
+                  "Content-Type": "application/x-www-form-urlencoded",
+                },
+              }).then((res) => {
+                console.log(res);
+                if (res.data == "nologin") {
+                  alert("用户登录信息错误");
+                  return;
+                }
+                if (res.data == "noperm") {
+                  alert("权限不足");
+                }
+                this.getListData(this.currentPage);
+              });
+            }
+          });
+        }
+      });
+      // if (confirm("是否确定删除")) {
+      // }
     },
   },
 };

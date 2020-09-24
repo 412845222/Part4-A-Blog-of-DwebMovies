@@ -3,6 +3,7 @@ import Vuex from "vuex";
 import axios from "axios";
 import Qs from "qs";
 import router from "../router"
+import swal from "sweetalert"
 Vue.use(Vuex);
 
 export default new Vuex.Store({
@@ -34,11 +35,11 @@ export default new Vuex.Store({
         data: Qs.stringify(formData),
       }).then((res) => {
         if (res.data == "none") {
-          alert("用户名不存在");
+          swal('错误','用户名不存在','error')
           return;
         }
         if (res.data == "pwderr") {
-          alert("密码错误");
+          swal('错误','密码错误','error')
           return;
         }
         console.log(res.data);
